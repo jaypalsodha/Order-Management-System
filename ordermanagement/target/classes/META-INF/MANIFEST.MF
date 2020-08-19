@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: ordermanagement
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: jaypal
+Implementation-Vendor-Id: com.example.ec
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/ordermanagem
+ ent/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
