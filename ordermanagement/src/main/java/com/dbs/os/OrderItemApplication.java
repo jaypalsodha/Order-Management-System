@@ -1,4 +1,4 @@
-package com.dbs.main;
+package com.dbs.os;
 
 
 import org.springframework.boot.SpringApplication;

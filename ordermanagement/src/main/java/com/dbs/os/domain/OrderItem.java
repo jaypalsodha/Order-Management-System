@@ -1,4 +1,4 @@
-package com.dbs.domain;
+package com.dbs.os.domain;
 
 import java.io.Serializable;
 

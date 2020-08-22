@@ -1,4 +1,4 @@
-package com.dbs.dto;
+package com.dbs.os.dto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

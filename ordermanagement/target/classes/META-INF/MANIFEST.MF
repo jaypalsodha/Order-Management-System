@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Implementation-Title: ordermanagement
+Implementation-Title: orderitemservice
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: jaypal
-Implementation-Vendor-Id: com.dbs.main
+Implementation-Vendor-Id: com.dbs.os
 Build-Jdk: 1.8.0_112
-Implementation-URL: http://projects.spring.io/spring-boot/ordermanagem
- ent/
+Implementation-URL: http://projects.spring.io/spring-boot/orderitemser
+ vice/
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

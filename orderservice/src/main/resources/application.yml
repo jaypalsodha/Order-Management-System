@@ -1,0 +1,7 @@
+stores:
+  ribbon:
+    listOfServers: http//localhost:8080,http://localhost:8081
+
+ribbon:
+  eureka:
+   enabled: false 

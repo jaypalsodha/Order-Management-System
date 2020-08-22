@@ -1,4 +1,4 @@
-package com.dbs.web;
+package com.dbs.os.web;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dbs.domain.OrderItem;
-import com.dbs.dto.OrderItemDto;
-import com.dbs.exception.OrderNotFound;
-import com.dbs.service.OrderItemService;
+import com.dbs.os.domain.OrderItem;
+import com.dbs.os.dto.OrderItemDto;
+import com.dbs.os.exception.OrderNotFound;
+import com.dbs.os.service.OrderItemService;
 
 /**
  * @author jaypal

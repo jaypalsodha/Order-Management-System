@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.example.ec.repo;
+package com.dbs.os.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.ec.domain.Order;
+import com.dbs.os.domain.Order;
 
 /**
  * @author jaypal sodha

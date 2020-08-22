@@ -1,10 +1,10 @@
-package com.dbs.service;
+package com.dbs.os.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dbs.domain.OrderItem;
-import com.dbs.repository.OrderItemRepository;
+import com.dbs.os.domain.OrderItem;
+import com.dbs.os.repository.OrderRepository;
 
 /**
  * @author jaypal
@@ -13,10 +13,10 @@ import com.dbs.repository.OrderItemRepository;
 @Service
 public class OrderItemService {
     
-	private OrderItemRepository orderItemRepository;
+	private OrderRepository orderItemRepository;
 
     @Autowired
-    public OrderItemService(OrderItemRepository orderItemRepository) {
+    public OrderItemService(OrderRepository orderItemRepository) {
         this.orderItemRepository = orderItemRepository;
     }
     

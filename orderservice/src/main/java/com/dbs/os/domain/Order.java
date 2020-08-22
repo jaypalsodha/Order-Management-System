@@ -1,4 +1,4 @@
-package com.example.ec.domain;
+package com.dbs.os.domain;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,13 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 /**
  * 
  * Created by jaypal sodha
  */
 @Entity
-@Table(name="Order1")
+@Table(name="order1")
+@Getter @Setter @NoArgsConstructor
 public class Order implements Serializable {
     /**
 	 * 
@@ -39,14 +44,12 @@ public class Order implements Serializable {
     @Column
     private String shippingAddress;
     
-    @OneToMany(mappedBy = "order1", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order1", orphanRemoval = true)
     private List<OrderItem> orderItemList;
     
     @Column 
     private double total;
     
-    protected Order() {}
-
 	public Order(String customerName, String orderDate, String shippingAddress, List<OrderItem> orderItemList,
 			double total) {
 		super();
@@ -56,53 +59,10 @@ public class Order implements Serializable {
 		this.orderItemList = orderItemList;
 		this.total = total;
 	}
-	
-	public String getCustomerName() {
-		return customerName;
+	public void addOrderItem(OrderItem orderItem) {
+		orderItemList.add(orderItem);
 	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void removeOrderItem(OrderItem orderItem) {
+		orderItemList.remove(orderItem);
 	}
-
-	public String getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public String getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public List<OrderItem> getOrderItemList() {
-		return orderItemList;
-	}
-
-	public void setOrderItemList(List<OrderItem> orderItemList) {
-		this.orderItemList = orderItemList;
-	}
-   
 }
