@@ -1,17 +1,17 @@
 package com.dbs.os.service;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dbs.os.domain.Order;
-import com.dbs.os.domain.OrderItem;
 import com.dbs.os.dto.OrderDto;
+import com.dbs.os.exception.OrderNotFound;
 import com.dbs.os.repository.OrderRepository;
 
 /**
- * @author jaypal
+ * @author jaypal sodha
  *
  */
 @Service
@@ -24,15 +24,17 @@ public class OrderService {
 		this.orderRepository = orderRepository;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	public Order createOrderItem(OrderDto orderDto) {
 		return orderRepository.save(new Order(orderDto.getCustomerName(), orderDto.getOrderDate(),
 				orderDto.getShippingAddress(), orderDto.getOrderItemList(), orderDto.getTotal()));
 	}
 
-	public Order findByCustomerName(String customerName) {
+	@Transactional(readOnly = true)
+	public Order findByCustomerName(String customerName) throws OrderNotFound {
 		Order order = orderRepository.findByCustomerName(customerName);
 		if (order == null) {
-			throw new NoSuchElementException("Order does not exist for Customer  " + customerName);
+			throw new OrderNotFound("Order does not exist for Customer:  " + customerName);
 		}
 		return order;
 	}

@@ -2,12 +2,14 @@ package com.dbs.os.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dbs.os.domain.OrderItem;
 import com.dbs.os.repository.OrderRepository;
 
 /**
- * @author jaypal
+ * @author jaypal sodha
  *
  */
 @Service
@@ -20,8 +22,9 @@ public class OrderItemService {
         this.orderItemRepository = orderItemRepository;
     }
     
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     public OrderItem createOrderItem(Integer productCode, String productName, Integer productQuantity) {
-    	if (orderItemRepository.findOne(productCode) == null) {
+    	if (orderItemRepository.findByProductCode(productCode) == null) {
             return orderItemRepository.save(new OrderItem(productCode, productName,productQuantity));
         } 
     	else {

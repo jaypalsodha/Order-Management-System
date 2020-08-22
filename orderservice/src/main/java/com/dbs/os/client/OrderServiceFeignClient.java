@@ -18,3 +18,4 @@ public interface OrderServiceFeignClient {
 	public OrderItem findOrderItemByProductCode(
 			@RequestParam(name = "productCode", required = true) Integer productCode);
 }
+
