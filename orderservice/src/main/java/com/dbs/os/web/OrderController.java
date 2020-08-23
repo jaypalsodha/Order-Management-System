@@ -1,5 +1,10 @@
 package com.dbs.os.web;
 
+import static com.dbs.os.constants.Constants.CUSTOMER_NAME_PATH;
+import static com.dbs.os.constants.Constants.ORDERS_PATH;
+import static com.dbs.os.constants.Constants.ORDER_CREATE_PATH;
+import static com.dbs.os.constants.Constants.SELECT_ORDER_ITEM_TO_PROCEED;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +33,7 @@ import com.dbs.os.exception.OrderNotFound;
 import com.dbs.os.service.OrderService;
 
 import lombok.NoArgsConstructor;
-import static com.dbs.os.constants.Constants.*;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -39,6 +44,7 @@ import static com.dbs.os.constants.Constants.*;
 @RequestMapping(path = ORDERS_PATH)
 @NoArgsConstructor
 @EnableFeignClients
+@Slf4j
 public class OrderController {
 
 	OrderService orderService;
@@ -53,8 +59,10 @@ public class OrderController {
 	@PostMapping(path = ORDER_CREATE_PATH)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Order createOrder(@RequestBody @Validated OrderDto orderDto) {
+		log.info("Create order method called");
 		List<OrderItem> orderItemList = new ArrayList<>();
 		if (orderDto.getProductCodeList().isEmpty()) {
+			log.error("Order item not found");
 			throw new OrderItemNotFoundException(SELECT_ORDER_ITEM_TO_PROCEED);
 		}
 		orderDto.getProductCodeList().forEach(productCode -> orderItemList
@@ -63,6 +71,7 @@ public class OrderController {
 			throw new OrderItemNotFoundException(SELECT_ORDER_ITEM_TO_PROCEED);
 		}
 		orderDto.setOrderItemList(orderItemList);
+		log.info("Create order method ended");
 		return orderService.createOrderItem(orderDto);
 	}
 

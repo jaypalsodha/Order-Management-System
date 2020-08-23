@@ -2,12 +2,12 @@ package com.dbs.os.dto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import static com.dbs.os.constants.Constants.*;
 
 /**
  * 
@@ -16,14 +16,15 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class OrderItemDto {
 
-    @Min(0)
-    @Max(10)
+	@Min(value = 1, message = PRODUCT_QUANTITY_CANNOT_BE_LESS_THAN_ONE)
     private Integer productQuantity;
 
-    @Size(max = 255)
+    @Min(value=1)
+    @Max(value=512)
+    @NotEmpty(message=PRODUCT_NAME_MUST_NOT_BE_EMPTY)
     private String productName;
 
-    @NotNull
+    @Min(value = 1, message = PRODUCT_CODE_IS_INVALID)
     private Integer productCode;
          
     public OrderItemDto(Integer productQuantity, String productName, Integer productCode) {

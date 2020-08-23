@@ -9,6 +9,7 @@ import com.dbs.os.domain.Order;
 import com.dbs.os.dto.OrderDto;
 import com.dbs.os.exception.OrderNotFound;
 import com.dbs.os.repository.OrderRepository;
+import static com.dbs.os.constants.Constants.*;
 
 /**
  * @author jaypal sodha
@@ -34,7 +35,7 @@ public class OrderService {
 	public Order findByCustomerName(String customerName) throws OrderNotFound {
 		Order order = orderRepository.findByCustomerName(customerName);
 		if (order == null) {
-			throw new OrderNotFound("Order does not exist for Customer:  " + customerName);
+			throw new OrderNotFound(ORDER_NOT_FOUND_FOR_CUSTOMER + customerName);
 		}
 		return order;
 	}

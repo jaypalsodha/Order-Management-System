@@ -8,4 +8,5 @@ public final class Constants {
 	public static final String SELECT_ORDER_ITEM_TO_PROCEED = "Please select order item to proceed";
 	public static final String CUSTOMER_NAME_PATH = "/{customerName}";
 	public static final String NO_RECORD_FOUND = "No records found";
+	public static final String ORDER_NOT_FOUND_FOR_CUSTOMER = "Order doesn't found for custoer";
 }
