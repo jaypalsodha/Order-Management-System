@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,15 +75,17 @@ public class OrderController {
 	}
 
 	@GetMapping(path = CUSTOMER_NAME_PATH)
-	public OrderDto fetchOrderByCustomerName(@PathVariable(value = "customerName") String customerName)
-			throws OrderNotFound {
+	public OrderDto fetchOrderByCustomerName(@PathVariable(value = "customerName") String customerName) {
+		log.info("inside fetchOrderByCustomerName for class :: OrderController");
 		Order order = orderService.findByCustomerName(customerName);
+		log.info("returing fom fetchOrderByCustomerName for class :: OrderController");
 		return new OrderDto(order.getCustomerName(), order.getOrderDate(), order.getShippingAddress(),
 				order.getOrderItemList(), order.getTotal());
+
 	}
 
 	@GetMapping
-	public List<OrderDto> fetchAllOrders() throws OrderNotFound {
+	public List<OrderDto> fetchAllOrders() {
 		Iterable<Order> itrOrderItem = orderService.lookup();
 		if (itrOrderItem == null) {
 			throw new OrderNotFound(Constants.NO_RECORD_FOUND);
@@ -97,17 +98,4 @@ public class OrderController {
 		return new OrderDto(order.getCustomerName(), order.getOrderDate(), order.getShippingAddress(),
 				order.getOrderItemList(), order.getTotal());
 	}
-
-	/**
-	 * Exception handler if OrderNotFound is thrown in this Controller
-	 *
-	 * @param ex
-	 * @return Error message String.
-	 */
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(OrderNotFound.class)
-	public String return400(OrderNotFound ex) {
-		return ex.getMessage();
-	}
-
 }

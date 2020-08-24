@@ -1,5 +1,10 @@
 package com.dbs.os.web;
 
+import static com.dbs.os.constants.Constants.ORDERITEM_ORDER_PATH;
+import static com.dbs.os.constants.Constants.ORDER_ITEM_NOT_FOUND;
+import static com.dbs.os.constants.Constants.ORDER_ITEM_NOT_FOUND_FOR_PRODUCT_CODE;
+import static com.dbs.os.constants.Constants.PATH_PRODUCT_CODE;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -21,8 +26,7 @@ import com.dbs.os.exception.OrderItemNotFound;
 import com.dbs.os.service.OrderItemService;
 
 import lombok.NoArgsConstructor;
-
-import static com.dbs.os.constants.Constants.*;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jaypal
@@ -31,9 +35,11 @@ import static com.dbs.os.constants.Constants.*;
 @RestController
 @RequestMapping(path = ORDERITEM_ORDER_PATH)
 @NoArgsConstructor
+@Slf4j
 public class OrderItemController {
 
 	OrderItemService orderItemService;
+
 	@Autowired
 	public OrderItemController(OrderItemService orderItemService) {
 		this.orderItemService = orderItemService;
@@ -42,12 +48,14 @@ public class OrderItemController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public OrderItem createOrderItem(@RequestBody @Validated OrderItemDto orderItemDto) {
+		log.info("inside createOrderItem for class :: OrderItemController");
 		return orderItemService.createOrderItem(orderItemDto.getProductCode(), orderItemDto.getProductName(),
 				orderItemDto.getProductQuantity());
 	}
 
 	@GetMapping(path = PATH_PRODUCT_CODE)
-	public OrderItemDto fetchOrderItemById(@PathVariable(value = "productCode") int productCode) throws OrderItemNotFound {
+	public OrderItemDto fetchOrderItemById(@PathVariable(value = "productCode") int productCode){
+		log.info("inside fetchOrderItemById for class :: OrderItemController");
 		OrderItem orderItem = orderItemService.findByProductCode(productCode);
 		if (orderItem == null) {
 			throw new OrderItemNotFound(ORDER_ITEM_NOT_FOUND_FOR_PRODUCT_CODE + productCode);
@@ -56,7 +64,8 @@ public class OrderItemController {
 	}
 
 	@GetMapping
-	public List<OrderItemDto> fetchAllOrderItem() throws OrderItemNotFound {
+	public List<OrderItemDto> fetchAllOrderItem(){
+		log.info("inside fetchAllOrderItem for class :: OrderItemController");
 		Iterable<OrderItem> itrOrderItem = orderItemService.lookup();
 		if (itrOrderItem == null) {
 			throw new OrderItemNotFound(ORDER_ITEM_NOT_FOUND);

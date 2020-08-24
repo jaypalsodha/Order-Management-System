@@ -11,7 +11,7 @@ import com.dbs.os.domain.OrderItem;
  * @author jaypal sodha
  *
  */
-@FeignClient(name="stores",url="http://localhost:8080")
+@FeignClient(name="orderservice",url="http://localhost:8080")
 @Service
 public interface OrderServiceFeignClient {
 	@GetMapping(value = "/orderitem/order/{productCode}")
